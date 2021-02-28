@@ -8,27 +8,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Style {
+public class DungeonType {
 
     private final List<Block> wallBlocks = new ArrayList<>();
     private final List<Block> floorBlocks = new ArrayList<>();
     private final Map<Identifier, Double> weightedLootTables = new HashMap<>();
 
-    public Style() {
+    public DungeonType() {
 
     }
 
-    public Style addWallBlock(Block block) {
+    public DungeonType addWallBlock(Block block) {
         this.wallBlocks.add(block);
         return this;
     }
 
-    public Style addFloorBlock(Block block) {
+    public DungeonType addFloorBlock(Block block) {
         this.floorBlocks.add(block);
         return this;
     }
 
-    public Style addLootTable(Identifier id, double weight) {
+    public DungeonType addLootTable(Identifier id, double weight) {
         this.weightedLootTables.put(id, weight);
         return this;
     }

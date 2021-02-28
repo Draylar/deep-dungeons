@@ -1,15 +1,14 @@
 package draylar.dd.world;
 
 import draylar.dd.api.*;
-import draylar.dd.style.Style;
-import draylar.dd.style.StyleRegistry;
+import draylar.dd.style.DungeonType;
+import draylar.dd.style.SimpleDungeonRegistry;
 import draylar.dd.world.api.SiftingStructureStart;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -36,7 +35,7 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
         List<Room> rooms = new ArrayList<>();
         int roomCount = 15 + random.nextInt(10);
         List<Connection> connections = new ArrayList<>();
-        Style style = StyleRegistry.get(registryManager.get(Registry.BIOME_KEY).getKey(biome).get(), biome, origin);
+        DungeonType style = SimpleDungeonRegistry.get(registryManager.get(Registry.BIOME_KEY).getKey(biome).get(), biome, origin);
 
         // Initialize starting rooms at 0, 0
         for (int i = 0; i < roomCount; i++) {

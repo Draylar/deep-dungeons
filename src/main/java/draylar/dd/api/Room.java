@@ -1,10 +1,7 @@
 package draylar.dd.api;
 
-import draylar.dd.style.Style;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import draylar.dd.style.DungeonType;
 import net.minecraft.block.Blocks;
-import net.minecraft.structure.Structure;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.*;
@@ -62,7 +59,7 @@ public class Room {
         return x1min < x2max && x2min < x1max && z1min < z2max && z2min < z1max;
     }
 
-    public Map<BlockPos, BlockInfo> build(BlockPos origin, Random random, Style style) {
+    public Map<BlockPos, BlockInfo> build(BlockPos origin, Random random, DungeonType style) {
         Map<BlockPos, BlockInfo> blocks = new HashMap<>();
 
         int minX = (int) x;

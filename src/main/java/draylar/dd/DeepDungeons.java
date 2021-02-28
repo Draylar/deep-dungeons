@@ -1,10 +1,13 @@
 package draylar.dd;
 
+import draylar.dd.config.DeepDungeonsConfig;
 import draylar.dd.registry.DeepDungeonFeatures;
 import draylar.dd.registry.DeepDungeonPieces;
 import draylar.dd.registry.DeepDungeonWorld;
 import draylar.dd.style.Style;
 import draylar.dd.style.StyleRegistry;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
@@ -12,6 +15,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class DeepDungeons implements ModInitializer {
+
+    public static final DeepDungeonsConfig CONFIG = AutoConfig.register(DeepDungeonsConfig.class, GsonConfigSerializer::new).getConfig();
 
     @Override
     public void onInitialize() {

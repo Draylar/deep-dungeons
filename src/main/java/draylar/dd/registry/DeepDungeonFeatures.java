@@ -7,7 +7,7 @@ import net.minecraft.world.gen.feature.*;
 
 public class DeepDungeonFeatures {
 
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ISLAND = register("standard", DeepDungeonWorld.STANDARD.configure(DefaultFeatureConfig.INSTANCE));
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_STANDARD_DUNGEON = register("standard_dungeon", DeepDungeonWorld.STANDARD_DUNGEON.configure(DefaultFeatureConfig.INSTANCE));
 
     private static <FC extends FeatureConfig, F extends StructureFeature<FC>> ConfiguredStructureFeature<FC, F> register(String id, ConfiguredStructureFeature<FC, F> configuredStructureFeature) {
         return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, DeepDungeons.id(id), configuredStructureFeature);

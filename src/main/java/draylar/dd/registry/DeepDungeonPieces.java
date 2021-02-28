@@ -7,7 +7,7 @@ import net.minecraft.util.registry.Registry;
 
 public class DeepDungeonPieces {
 
-    public static final StructurePieceType STANDARD = register("standard", SiftingStructureGenerator::new);
+    public static final StructurePieceType STANDARD = register("standard_dungeon", SiftingStructureGenerator::new);
 
     public static void init() {
 

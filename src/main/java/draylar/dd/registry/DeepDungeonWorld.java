@@ -3,7 +3,6 @@ package draylar.dd.registry;
 import draylar.dd.DeepDungeons;
 import draylar.dd.world.StandardDungeonStructure;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.util.registry.Registry;
@@ -15,7 +14,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 public class DeepDungeonWorld {
 
-    public static final StructureFeature<DefaultFeatureConfig> STANDARD = new StandardDungeonStructure(DefaultFeatureConfig.CODEC);
+    public static final StructureFeature<DefaultFeatureConfig> STANDARD_DUNGEON = new StandardDungeonStructure(DefaultFeatureConfig.CODEC);
 
     public static void init() {
         registerStructures();
@@ -24,18 +23,18 @@ public class DeepDungeonWorld {
 
     public static void registerStructures() {
         FabricStructureBuilder
-                .create(DeepDungeons.id("standard"), STANDARD)
+                .create(DeepDungeons.id("standard_dungeon"), STANDARD_DUNGEON)
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-                .defaultConfig(6, 5, 62326)
+                .defaultConfig(DeepDungeons.CONFIG.standardDungeonSpacing, DeepDungeons.CONFIG.standardDungeonSeparation, 62326)
                 .register();
     }
 
     public static void registerAdditions() {
         BiomeModifications
-                .create(DeepDungeons.id("standard"))
+                .create(DeepDungeons.id("standard_dungeon"))
                 .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.all(),
-                        context -> context.getGenerationSettings().addBuiltInStructure(DeepDungeonFeatures.CONFIGURED_ISLAND));
+                        context -> !DeepDungeons.CONFIG.standardDungeonBiomeBlacklist.contains(context.getBiomeKey().getValue().toString()),
+                        context -> context.getGenerationSettings().addBuiltInStructure(DeepDungeonFeatures.CONFIGURED_STANDARD_DUNGEON));
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

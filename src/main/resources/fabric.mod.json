@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "deep-dungeons",
+  "version": "${version}",
+  "name": "Deep Dungeons",
+  "description": "A modern procedural dungeon mod for Fabric.",
+  "authors": [
+    "Draylar"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/deep-dungeons/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "draylar.dd.DeepDungeonsClient"
+    ],
+    "main": [
+      "draylar.dd.DeepDungeons"
+    ]
+  },
+  "mixins": [
+    "deep-dungeons.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.2",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}

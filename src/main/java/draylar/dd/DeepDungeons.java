@@ -36,6 +36,27 @@ public class DeepDungeons implements ModInitializer {
                 .addFloorBlock(Blocks.SANDSTONE).addFloorBlock(Blocks.SMOOTH_SANDSTONE).addFloorBlock(Blocks.SAND)
                 .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
 
+        StyleRegistry.registerBiomeStyle((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.ICY) || biome.getCategory().equals(Biome.Category.TAIGA), 1, new Style()
+                .addWallBlock(Blocks.ICE).addWallBlock(Blocks.BLUE_ICE).addWallBlock(Blocks.PACKED_ICE)
+                .addFloorBlock(Blocks.PACKED_ICE)
+                .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
+
+        StyleRegistry.registerBiomeStyle((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.MESA), 1, new Style()
+                .addWallBlock(Blocks.ORANGE_TERRACOTTA).addWallBlock(Blocks.RED_TERRACOTTA)
+                .addFloorBlock(Blocks.RED_TERRACOTTA)
+                .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
+
+        StyleRegistry.registerBiomeStyle((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.MUSHROOM), 1, new Style()
+                .addWallBlock(Blocks.BROWN_MUSHROOM_BLOCK).addWallBlock(Blocks.RED_MUSHROOM_BLOCK)
+                .addFloorBlock(Blocks.BROWN_MUSHROOM_BLOCK)
+                .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
+
+        StyleRegistry.registerBiomeStyle((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.OCEAN), 1, new Style()
+                .addWallBlock(Blocks.PRISMARINE).addWallBlock(Blocks.PRISMARINE_BRICKS)
+                .addFloorBlock(Blocks.PRISMARINE_BRICKS).addFloorBlock(Blocks.PRISMARINE)
+                .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
+
+
         // SPECIFIC BIOMES ---------------------------------------------------------------------------------------------------------------------
         StyleRegistry.registerBiomeStyle((key, biome, originPosition) -> key.equals(BiomeKeys.BASALT_DELTAS), 2, new Style()
                 .addWallBlock(Blocks.POLISHED_BLACKSTONE_BRICKS).addWallBlock(Blocks.POLISHED_BLACKSTONE_BRICKS)

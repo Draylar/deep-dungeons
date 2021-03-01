@@ -1,6 +1,7 @@
 package draylar.dd.style;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +12,11 @@ import java.util.*;
 
 public class SimpleDungeonRegistry {
 
-    private static final DungeonType FALLBACK_DUNGEON = new DungeonType().addWallBlock(Blocks.COBBLESTONE).addWallBlock(Blocks.MOSSY_COBBLESTONE).addLootTable(new Identifier("chests/simple_dungeon"), 1.0);
+    private static final DungeonType FALLBACK_DUNGEON = new DungeonType()
+            .addWallBlock(Blocks.COBBLESTONE).addWallBlock(Blocks.MOSSY_COBBLESTONE)
+            .withSpawnType(EntityType.ZOMBIE).withSpawnType(EntityType.SKELETON).withSpawnType(EntityType.SPIDER)
+            .addLootTable(new Identifier("chests/simple_dungeon"), 1.0);
+
     private static final Map<DungeonTypeCheck, Pair<Integer, DungeonType>> BIOME_DUNGEON_TYPES = new HashMap<>();
 
     public static void register(DungeonTypeCheck requirement, int priority, DungeonType type) {

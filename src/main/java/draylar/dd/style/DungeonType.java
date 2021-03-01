@@ -1,6 +1,8 @@
 package draylar.dd.style;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ public class DungeonType {
     private final List<Block> wallBlocks = new ArrayList<>();
     private final List<Block> floorBlocks = new ArrayList<>();
     private final Map<Identifier, Double> weightedLootTables = new HashMap<>();
+    private List<EntityType<? extends LivingEntity>> mobs = new ArrayList<>();
+    private boolean placeLadder = false;
 
     public DungeonType() {
 
@@ -33,6 +37,16 @@ public class DungeonType {
         return this;
     }
 
+    public DungeonType placeLadder(boolean place) {
+        this.placeLadder = place;
+        return this;
+    }
+
+    public DungeonType withSpawnType(EntityType<? extends LivingEntity> sup) {
+        this.mobs.add(sup);
+        return this;
+    }
+
     public List<Block> getWallBlocks() {
         return wallBlocks;
     }
@@ -45,7 +59,15 @@ public class DungeonType {
         return floorBlocks;
     }
 
+    public List<EntityType<? extends LivingEntity>> getMobs() {
+        return mobs;
+    }
+
     public Map<Identifier, Double> getWeightedLootTables() {
         return weightedLootTables;
+    }
+
+    public boolean shouldPlaceLadder() {
+        return placeLadder;
     }
 }

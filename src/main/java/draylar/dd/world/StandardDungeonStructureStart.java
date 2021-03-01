@@ -123,7 +123,7 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
 
                             blocks.put(up, new BlockInfo(Blocks.CHEST.getDefaultState(), FeatureHelper.createChestTag(pool.get(random.nextInt(pool.size())), up)));
                         } else if (random.nextInt(150) == 0) {
-                            blocks.put(up, new BlockInfo(Blocks.SPAWNER.getDefaultState(), null));
+                            blocks.put(up, new BlockInfo(Blocks.SPAWNER.getDefaultState(), FeatureHelper.createSpawnerTag(up, type)));
                         }
                     }
                 }

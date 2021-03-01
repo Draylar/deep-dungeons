@@ -12,9 +12,6 @@
   "icon": "assets/deepdungeons/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "draylar.dd.DeepDungeonsClient"
-    ],
     "main": [
       "draylar.dd.DeepDungeons"
     ]

@@ -4,6 +4,7 @@
   "package": "draylar.dd.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MobSpawnerLogicMixin"
   ],
   "client": [
   ],

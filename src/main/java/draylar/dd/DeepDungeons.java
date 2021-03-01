@@ -26,6 +26,7 @@ public class DeepDungeons implements ModInitializer {
 
         // GENERAL DIMENSION FALLBACKS ---------------------------------------------------------------------------------------------------------------------
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.THEEND), 0, new DungeonType()
+                .placeLadder(true)
                 .addWallBlock(Blocks.END_STONE_BRICKS)
                 .addFloorBlock(Blocks.END_STONE).addFloorBlock(Blocks.END_STONE_BRICKS)
                 .addLootTable(new Identifier("chests/end_city_treasure"), 1.0));
@@ -37,21 +38,25 @@ public class DeepDungeons implements ModInitializer {
 
         // BIOME CATEGORIES ---------------------------------------------------------------------------------------------------------------------
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.DESERT), 1, new DungeonType()
+                .placeLadder(true)
                 .addWallBlock(Blocks.SANDSTONE).addWallBlock(Blocks.SMOOTH_SANDSTONE)
                 .addFloorBlock(Blocks.SANDSTONE).addFloorBlock(Blocks.SMOOTH_SANDSTONE).addFloorBlock(Blocks.SAND)
                 .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.ICY) || biome.getCategory().equals(Biome.Category.TAIGA), 1, new DungeonType()
+                .placeLadder(true)
                 .addWallBlock(Blocks.ICE).addWallBlock(Blocks.BLUE_ICE).addWallBlock(Blocks.PACKED_ICE)
                 .addFloorBlock(Blocks.PACKED_ICE)
                 .addLootTable(new Identifier("chests/simple_dungeon"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.MESA), 1, new DungeonType()
+                .placeLadder(true)
                 .addWallBlock(Blocks.ORANGE_TERRACOTTA).addWallBlock(Blocks.RED_TERRACOTTA)
                 .addFloorBlock(Blocks.RED_TERRACOTTA)
                 .addLootTable(new Identifier("chests/abandoned_mineshaft"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.MUSHROOM), 1, new DungeonType()
+                .placeLadder(true)
                 .addWallBlock(Blocks.BROWN_MUSHROOM_BLOCK).addWallBlock(Blocks.RED_MUSHROOM_BLOCK)
                 .addFloorBlock(Blocks.BROWN_MUSHROOM_BLOCK)
                 .addLootTable(new Identifier("chests/abandoned_mineshaft"), 1.0));

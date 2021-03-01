@@ -9,8 +9,10 @@ import net.minecraft.structure.StructureManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -35,7 +37,7 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
         List<Room> rooms = new ArrayList<>();
         int roomCount = 15 + random.nextInt(10);
         List<Connection> connections = new ArrayList<>();
-        DungeonType style = SimpleDungeonRegistry.get(registryManager.get(Registry.BIOME_KEY).getKey(biome).get(), biome, origin);
+        DungeonType type = SimpleDungeonRegistry.get(registryManager.get(Registry.BIOME_KEY).getKey(biome).get(), biome, origin);
 
         // Initialize starting rooms at 0, 0
         for (int i = 0; i < roomCount; i++) {
@@ -51,7 +53,7 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
         });
 
         // Rooms -> blocks
-        rooms.forEach(room -> blocks.putAll(room.build(origin, random, style)));
+        rooms.forEach(room -> blocks.putAll(room.build(origin, random, type)));
 
         // doors
         rooms.forEach(from -> {
@@ -78,10 +80,18 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
                 BlockPos nOrigin = new BlockPos(totalX / interceptionPoints.size(), 0, totalZ / interceptionPoints.size());
 
                 // place
-                for (int x = -1; x <= 1; x++) {
-                    for (int z = -1; z <= 1; z++) {
+                for (int x = -3; x <= 3; x++) {
+                    for (int z = -3; z <= 3; z++) {
                         for (int y = 1; y <= 4; y++) {
-                            blocks.put(origin.add(nOrigin).add(x, y, z), new BlockInfo(Blocks.AIR.getDefaultState(), null));
+                            // If we are on the edge (3) and a block has not been placed there yet, set it to a wall block.
+                            if(Math.abs(x) == 3 || Math.abs(z) == 3) {
+                                BlockPos checkPos = origin.add(nOrigin).add(x, y, z);
+                                if(!blocks.containsKey(checkPos)) {
+                                    blocks.put(origin.add(nOrigin).add(x, y, z), new BlockInfo(type.getWallBlocks().get(random.nextInt(type.getWallBlocks().size())).getDefaultState(), null));
+                                }
+                            } else {
+                                blocks.put(origin.add(nOrigin).add(x, y, z), new BlockInfo(Blocks.AIR.getDefaultState(), null));
+                            }
                         }
                     }
                 }
@@ -102,7 +112,16 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
                     // If it is air, this is a valid placement position.
                     if(upState.state.isAir()) {
                         if (random.nextInt(150) == 0) {
-                            blocks.put(up, new BlockInfo(Blocks.CHEST.getDefaultState(), FeatureHelper.createChestTag(new Identifier("chests/simple_dungeon"), up)));
+                            // chest weight logic
+                            List<Identifier> pool = new ArrayList<>();
+                            Map<Identifier, Double> weightedLootTables = type.getWeightedLootTables();
+                            weightedLootTables.forEach((identifier, weight) -> {
+                                for(int i = 0; i < weight * 100; i++) {
+                                    pool.add(identifier);
+                                }
+                            });
+
+                            blocks.put(up, new BlockInfo(Blocks.CHEST.getDefaultState(), FeatureHelper.createChestTag(pool.get(random.nextInt(pool.size())), up)));
                         } else if (random.nextInt(150) == 0) {
                             blocks.put(up, new BlockInfo(Blocks.SPAWNER.getDefaultState(), null));
                         }
@@ -110,6 +129,40 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
                 }
             }
         });
+
+        // place ladder going up
+        if(type.shouldPlaceLadder()) {
+            Room ladderSource = rooms.get(random.nextInt(rooms.size()));
+            int ladderX = origin.getX() + (int) ladderSource.getX() + (ladderSource.getWidth() / 2);
+            int ladderZ = origin.getZ() + (int) ladderSource.getZ() + (ladderSource.getDepth() / 2);
+            int ladderHeight = chunkGenerator.getHeightInGround(ladderX, ladderZ, Heightmap.Type.WORLD_SURFACE_WG);
+            for (int i = 31; i <= ladderHeight; i++) {
+                blocks.put(new BlockPos(ladderX, i, ladderZ), new BlockInfo(Blocks.LADDER.getDefaultState(), null));
+
+                for(Direction direction : Direction.values()) {
+                    if(!direction.getAxis().equals(Direction.Axis.Y)) {
+                        BlockPos offset = new BlockPos(ladderX, i, ladderZ).offset(direction);
+
+                        // ensure we are not placing over existing air
+                        if(!blocks.containsKey(offset)) {
+                            blocks.put(offset, new BlockInfo(type.getWallBlocks().get(random.nextInt(type.getWallBlocks().size())).getDefaultState(), null));
+                        }
+                    }
+                }
+            }
+
+            // place explosion circle around ladder
+            for(int x = -7; x <= 7; x++) {
+                for(int z = -7; z <= 7; z++) {
+                    if(x != 0 && z != 0) {
+                        int expX = ladderX + x;
+                        int expZ = ladderZ + z;
+                        int expHeight = chunkGenerator.getHeightInGround(expX, expZ, Heightmap.Type.WORLD_SURFACE_WG);
+                        blocks.put(new BlockPos(expX, expHeight, expZ), new BlockInfo(type.getFloorBlocks().get(random.nextInt(type.getFloorBlocks().size())).getDefaultState(), null));
+                    }
+                }
+            }
+        }
 
         System.out.println("Took: " + (System.currentTimeMillis() - start) + " to finish");
 

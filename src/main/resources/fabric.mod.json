@@ -9,7 +9,7 @@
   ],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/deep-dungeons/icon.png",
+  "icon": "assets/deepdungeons/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [

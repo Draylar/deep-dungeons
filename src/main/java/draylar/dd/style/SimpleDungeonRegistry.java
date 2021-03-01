@@ -13,8 +13,8 @@ import java.util.*;
 public class SimpleDungeonRegistry {
 
     private static final DungeonType FALLBACK_DUNGEON = new DungeonType()
-            .addWallBlock(Blocks.COBBLESTONE).addWallBlock(Blocks.MOSSY_COBBLESTONE)
-            .withSpawnType(EntityType.ZOMBIE).withSpawnType(EntityType.SKELETON).withSpawnType(EntityType.SPIDER)
+            .addWallBlock(Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE)
+            .addSpawnable(EntityType.ZOMBIE, EntityType.SKELETON, EntityType.SPIDER)
             .addLootTable(new Identifier("chests/simple_dungeon"), 1.0);
 
     private static final Map<DungeonTypeCheck, Pair<Integer, DungeonType>> BIOME_DUNGEON_TYPES = new HashMap<>();

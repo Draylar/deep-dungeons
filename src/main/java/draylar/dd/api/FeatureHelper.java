@@ -2,7 +2,6 @@ package draylar.dd.api;
 
 import draylar.dd.style.DungeonType;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Identifier;
@@ -30,8 +29,8 @@ public class FeatureHelper {
         spawnerTag.putInt("z", pos.getZ());
 
         // get random mob
-        List<EntityType<? extends LivingEntity>> mobs = type.getMobs();
-        EntityType<? extends LivingEntity> mob = mobs.get(new Random().nextInt(mobs.size()));
+        List<EntityType<?>> mobs = type.getMobs();
+        EntityType<?> mob = mobs.get(new Random().nextInt(mobs.size()));
         ListTag spawns = new ListTag();
         CompoundTag spawn = new CompoundTag();
         CompoundTag entityTag = new CompoundTag();

@@ -2,33 +2,29 @@ package draylar.dd.style;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DungeonType {
 
     private final List<Block> wallBlocks = new ArrayList<>();
     private final List<Block> floorBlocks = new ArrayList<>();
     private final Map<Identifier, Double> weightedLootTables = new HashMap<>();
-    private List<EntityType<? extends LivingEntity>> mobs = new ArrayList<>();
+    private final List<EntityType<?>> mobs = new ArrayList<>();
     private boolean placeLadder = false;
 
     public DungeonType() {
 
     }
 
-    public DungeonType addWallBlock(Block block) {
-        this.wallBlocks.add(block);
+    public DungeonType addWallBlock(Block... blocks) {
+        this.wallBlocks.addAll(Arrays.asList(blocks));
         return this;
     }
 
-    public DungeonType addFloorBlock(Block block) {
-        this.floorBlocks.add(block);
+    public DungeonType addFloorBlock(Block... blocks) {
+        this.floorBlocks.addAll(Arrays.asList(blocks));
         return this;
     }
 
@@ -42,8 +38,8 @@ public class DungeonType {
         return this;
     }
 
-    public DungeonType withSpawnType(EntityType<? extends LivingEntity> sup) {
-        this.mobs.add(sup);
+    public DungeonType addSpawnable(EntityType<?>... mobs) {
+        this.mobs.addAll(Arrays.asList(mobs));
         return this;
     }
 
@@ -59,7 +55,7 @@ public class DungeonType {
         return floorBlocks;
     }
 
-    public List<EntityType<? extends LivingEntity>> getMobs() {
+    public List<EntityType<?>> getMobs() {
         return mobs;
     }
 

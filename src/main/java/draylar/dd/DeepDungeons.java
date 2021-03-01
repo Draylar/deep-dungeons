@@ -28,19 +28,13 @@ public class DeepDungeons implements ModInitializer {
         // GENERAL DIMENSION FALLBACKS ---------------------------------------------------------------------------------------------------------------------
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.THEEND), 0, new DungeonType()
                 .placeLadder(true)
-                .withSpawnType(EntityType.ENDERMAN)
-                .withSpawnType(EntityType.ENDERMITE)
-                .withSpawnType(EntityType.SHULKER)
+                .addSpawnable(EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.SHULKER)
                 .addWallBlock(Blocks.END_STONE_BRICKS)
-                .addFloorBlock(Blocks.END_STONE).addFloorBlock(Blocks.END_STONE_BRICKS)
+                .addFloorBlock(Blocks.END_STONE, Blocks.END_STONE_BRICKS)
                 .addLootTable(new Identifier("chests/end_city_treasure"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.NETHER), 0, new DungeonType()
-                .withSpawnType(EntityType.PIGLIN)
-                .withSpawnType(EntityType.PIGLIN_BRUTE)
-                .withSpawnType(EntityType.BLAZE)
-                .withSpawnType(EntityType.MAGMA_CUBE)
-                .withSpawnType(EntityType.WITHER_SKELETON)
+                .addSpawnable(EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.BLAZE, EntityType.MAGMA_CUBE, EntityType.WITHER_SKELETON)
                 .addWallBlock(Blocks.NETHER_BRICKS)
                 .addFloorBlock(Blocks.NETHERRACK)
                 .addLootTable(new Identifier("chests/nether_bridge"), 1.0));
@@ -48,55 +42,43 @@ public class DeepDungeons implements ModInitializer {
         // BIOME CATEGORIES ---------------------------------------------------------------------------------------------------------------------
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.DESERT), 1, new DungeonType()
                 .placeLadder(true)
-                .withSpawnType(EntityType.HUSK)
-                .withSpawnType(EntityType.SKELETON)
-                .withSpawnType(EntityType.SPIDER)
-                .withSpawnType(EntityType.CAVE_SPIDER)
-                .addWallBlock(Blocks.SANDSTONE).addWallBlock(Blocks.SMOOTH_SANDSTONE)
-                .addFloorBlock(Blocks.SANDSTONE).addFloorBlock(Blocks.SMOOTH_SANDSTONE).addFloorBlock(Blocks.SAND)
+                .addSpawnable(EntityType.HUSK, EntityType.SKELETON, EntityType.SPIDER, EntityType.CAVE_SPIDER)
+                .addWallBlock(Blocks.SANDSTONE, Blocks.SMOOTH_SANDSTONE)
+                .addFloorBlock(Blocks.SANDSTONE, Blocks.SMOOTH_SANDSTONE, Blocks.SAND)
                 .addLootTable(new Identifier("chests/desert_pyramid"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.ICY) || biome.getCategory().equals(Biome.Category.TAIGA), 1, new DungeonType()
                 .placeLadder(true)
-                .withSpawnType(EntityType.STRAY)
-                .withSpawnType(EntityType.SKELETON)
-                .withSpawnType(EntityType.ZOMBIE)
-                .addWallBlock(Blocks.ICE).addWallBlock(Blocks.BLUE_ICE).addWallBlock(Blocks.PACKED_ICE)
+                .addSpawnable(EntityType.STRAY, EntityType.SKELETON, EntityType.ZOMBIE)
+                .addWallBlock(Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE)
                 .addFloorBlock(Blocks.PACKED_ICE)
                 .addLootTable(new Identifier("chests/simple_dungeon"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.MESA), 1, new DungeonType()
                 .placeLadder(true)
-                .withSpawnType(EntityType.SPIDER)
-                .withSpawnType(EntityType.ZOMBIE)
-                .withSpawnType(EntityType.SKELETON)
-                .withSpawnType(EntityType.CAVE_SPIDER)
-                .addWallBlock(Blocks.ORANGE_TERRACOTTA).addWallBlock(Blocks.RED_TERRACOTTA)
+                .addSpawnable(EntityType.SPIDER, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.CAVE_SPIDER)
+                .addWallBlock(Blocks.ORANGE_TERRACOTTA, Blocks.RED_TERRACOTTA)
                 .addFloorBlock(Blocks.RED_TERRACOTTA)
                 .addLootTable(new Identifier("chests/abandoned_mineshaft"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.MUSHROOM), 1, new DungeonType()
                 .placeLadder(true)
-                .withSpawnType(EntityType.SPIDER)
-                .withSpawnType(EntityType.ZOMBIE)
-                .withSpawnType(EntityType.SKELETON)
-                .addWallBlock(Blocks.BROWN_MUSHROOM_BLOCK).addWallBlock(Blocks.RED_MUSHROOM_BLOCK)
+                .addSpawnable(EntityType.SPIDER, EntityType.ZOMBIE, EntityType.SKELETON)
+                .addWallBlock(Blocks.BROWN_MUSHROOM_BLOCK, Blocks.RED_MUSHROOM_BLOCK)
                 .addFloorBlock(Blocks.BROWN_MUSHROOM_BLOCK)
                 .addLootTable(new Identifier("chests/abandoned_mineshaft"), 1.0));
 
         SimpleDungeonRegistry.register((key, biome, originPosition) -> biome.getCategory().equals(Biome.Category.OCEAN), 1, new DungeonType()
-                .withSpawnType(EntityType.DROWNED)
-                .withSpawnType(EntityType.SKELETON)
-                .addWallBlock(Blocks.PRISMARINE).addWallBlock(Blocks.PRISMARINE_BRICKS)
-                .addFloorBlock(Blocks.PRISMARINE_BRICKS).addFloorBlock(Blocks.PRISMARINE)
+                .addSpawnable(EntityType.DROWNED, EntityType.SKELETON)
+                .addWallBlock(Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS)
+                .addFloorBlock(Blocks.PRISMARINE_BRICKS, Blocks.PRISMARINE)
                 .addLootTable(new Identifier("chests/underwater_ruin_big"), 1.0));
 
 
         // SPECIFIC BIOMES ---------------------------------------------------------------------------------------------------------------------
         SimpleDungeonRegistry.register((key, biome, originPosition) -> key.equals(BiomeKeys.BASALT_DELTAS), 2, new DungeonType()
-                .withSpawnType(EntityType.PIGLIN)
-                .withSpawnType(EntityType.PIGLIN_BRUTE)
-                .addWallBlock(Blocks.POLISHED_BLACKSTONE_BRICKS).addWallBlock(Blocks.POLISHED_BLACKSTONE_BRICKS)
+                .addSpawnable(EntityType.PIGLIN, EntityType.PIGLIN_BRUTE)
+                .addWallBlock(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.POLISHED_BLACKSTONE_BRICKS)
                 .addLootTable(new Identifier("chests/bastion_other"), 0.5)
                 .addLootTable(new Identifier("chests/bastion_bridge"), 1.0)
                 .addLootTable(new Identifier("chests/bastion_treasure"), 0.1));

@@ -4,6 +4,7 @@ import draylar.dd.api.*;
 import draylar.dd.style.DungeonType;
 import draylar.dd.style.SimpleDungeonRegistry;
 import draylar.dd.world.api.SiftingStructureStart;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.util.Identifier;
@@ -164,7 +165,9 @@ public class StandardDungeonStructureStart extends SiftingStructureStart {
             }
         }
 
-        System.out.println("Took: " + (System.currentTimeMillis() - start) + " to finish");
+        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            System.out.println("Took: " + (System.currentTimeMillis() - start) + " to finish");
+        }
 
         return blocks;
     }
